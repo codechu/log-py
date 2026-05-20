@@ -1,9 +1,11 @@
 ```text
-   c o d e c h u  ·  l o g
-   2026-05-20T12:34:56.789Z  INFO  myapp  started  service=api user=onur
-   2026-05-20T12:34:57.013Z  WARN  myapp  retrying  attempt=2 backoff=0.5s
-   2026-05-20T12:34:57.812Z  ERROR myapp  failed    err="ECONNRESET" req=r-42
-   ── one call. structured records. async-safe context. ──
+━━━━━━━━━━━━ c o d e c h u  ·  l o g ━━━━━━━━━━━━
+
+   2026-05-20T12:34:56.789Z  INFO   myapp  started   service=api user=onur
+   2026-05-20T12:34:57.013Z  WARN   myapp  retrying  attempt=2 backoff=0.5s
+   2026-05-20T12:34:57.812Z  ERROR  myapp  failed    err="ECONNRESET" req=r-42
+
+━━━ one call. structured records. async-safe context. ━━━
 ```
 
 > *Stdlib-only structured logging — JSON or text, rotating, redacting, `contextvars`-aware.*
