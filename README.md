@@ -15,10 +15,20 @@
 
 # codechu-log
 
-Stdlib-only structured logging for Python 3.10+. One call configures a
-rotating file handler, a TTY-aware console handler, optional JSON output,
-and a redaction list. Context is propagated through `contextvars` so it
-works across `await` boundaries.
+Stdlib-only structured logging for Python. One call sets up a
+rotating file handler, a TTY-aware console handler, optional JSON
+output, and a redaction list. Context propagates through
+`contextvars` so it survives `await` boundaries.
+
+## Install
+
+```bash
+pip install codechu-log
+```
+
+Python 3.10+. Built on stdlib `logging`; zero third-party deps.
+
+## Quick example
 
 ```python
 from codechu_log import setup, bind, Context
@@ -38,56 +48,48 @@ Output (one JSON object per line):
  "exc_info": null, "pid": 4321, "thread": "MainThread"}
 ```
 
-## Features
+## What you get
 
-- `setup(name, *, level, file, json, max_bytes, backup_count, fmt, redact)`
-  — one-call configuration with `RotatingFileHandler` and a TTY-aware
-  console handler.
-- `Context(**fields)` — context manager backed by `contextvars`; nested
-  scopes merge, child wins on key conflict, propagation survives `await`.
-- `bind(logger, **fields)` — always-on fields per logger.
-- `structured(logger)` — `log.info("msg", key=value)` lifts kwargs into
-  the structured payload.
-- `redact=[...]` — replace listed field keys with `<redacted>` in both
-  text and JSON output.
+- **`setup(name, *, level, file, json, max_bytes, backup_count, fmt, redact)`**
+  — one-call configuration with `RotatingFileHandler` and a
+  TTY-aware console handler.
+- **`Context(**fields)`** — `contextvars`-backed scope; nested
+  scopes merge, child wins on key conflict, propagation survives
+  `await`.
+- **`bind(logger, **fields)`** — always-on fields per logger
+  instance.
+- **`structured(logger)`** —
+  `log.info("msg", key=value)` lifts kwargs into the structured
+  payload.
+- **`redact=[…]`** — listed field keys are replaced with
+  `<redacted>` in both text and JSON output.
 
-## Install
+## Read more
 
-```bash
-pip install codechu-log
-```
-
-## Documentation
-
-- [API reference](docs/API.md) — every public symbol and the JSON schema.
+- [API reference](docs/API.md) — every public symbol and the JSON
+  schema.
 - [Recipes](docs/RECIPES.md) — common configurations.
-- [CHANGELOG](CHANGELOG.md)
+- [Changelog](CHANGELOG.md)
 
-## Codechu family
-
-Companion libraries from the Codechu Python ecosystem:
+## Family
 
 | Library | Purpose |
 |---------|---------|
-| [codechu-fmt](https://pypi.org/project/codechu-fmt/) | Human-readable formatting — sizes, durations, rates, percent |
-| [codechu-meter](https://pypi.org/project/codechu-meter/) | Timing primitives — Stopwatch, ETA, percentile, histogram |
-| [codechu-spark](https://pypi.org/project/codechu-spark/) | Unicode sparklines, mini bar charts, heatmaps |
-| [codechu-cli](https://pypi.org/project/codechu-cli/) | CLI primitives — colors, progress, spinners, prompts, table |
-| [codechu-events](https://pypi.org/project/codechu-events/) | Thread-safe multi-channel pub/sub bus with replay |
-| [codechu-xdg](https://pypi.org/project/codechu-xdg/) | XDG Base Directory helpers, vendor-namespaced |
-| [codechu-treeviz](https://pypi.org/project/codechu-treeviz/) | Tree visualization — treemap, sunburst, icicle, flame |
-| [codechu-fs](https://pypi.org/project/codechu-fs/) | Filesystem primitives — atomic write, XDG trash, safe walk |
-| [codechu-term](https://pypi.org/project/codechu-term/) | Terminal capability detection, alt buffer, raw mode |
-| [codechu-color](https://pypi.org/project/codechu-color/) | Color palettes, WCAG contrast, color-blind variants |
-| [codechu-treedata](https://pypi.org/project/codechu-treedata/) | N-ary tree data structures and algorithms |
-| [codechu-i18n](https://pypi.org/project/codechu-i18n/) | Internationalization — locale, plural rules, RTL |
+| [codechu-events](https://pypi.org/project/codechu-events/) | Thread-safe multi-channel pub/sub bus |
 | [codechu-ipc](https://pypi.org/project/codechu-ipc/) | Local IPC — Unix socket, FIFO, JSON-line protocol |
-| [codechu-config](https://pypi.org/project/codechu-config/) | Schema-driven config — atomic save, migrations |
+| [codechu-xdg](https://pypi.org/project/codechu-xdg/) | XDG Base Directory helpers, vendor-namespaced |
+| [codechu-fmt](https://pypi.org/project/codechu-fmt/) | Human-readable sizes, durations, rates |
+| [codechu-fs](https://pypi.org/project/codechu-fs/) | Filesystem primitives — atomic write, XDG trash |
+
+Full ecosystem: [github.com/codechu](https://github.com/codechu).
 
 ## Credits
 
-- Built on stdlib `logging`; contextvars pattern for async-safe context propagation.
+- Built on stdlib `logging`; `contextvars` pattern for async-safe
+  context propagation.
 
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+Part of [Codechu](https://github.com/codechu).
